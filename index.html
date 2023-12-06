@@ -8,20 +8,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
+        var url = "https://aidontdeletepython.azurewebsites.net"
         function roepaan(){
             let invoer = document.getElementById("vraag").value;
-            fetch("https://aidontdeletepython.azurewebsites.net/abc/"+invoer)
+            fetch(url+"/abc/"+invoer)
             .then(r => r.text())
-            .then(d => verwerk(d))
+            .then(d => verwerk(d, "uitkomst"))
         }
-        function verwerk(data){
-            document.getElementById("uitkomst").innerHTML=data;
+        function verwerk(data, element){
+            document.getElementById(element).innerHTML=data;
+        }
+        function roepaan2(){
+            fetch(url+"/summarizer")
+            .then(r => r.text())
+            .then(d => verwerk(d, "uitkomst2"))
         }
     </script>
 </head>
 <body>
-    <input id="vraag">
-    <button onclick="roepaan()">klik</button>
-    <div id="uitkomst">a</div>
+    <input id="vraag" value="wat is de hoofdstad van spanje" size="50">
+    <button onclick="roepaan()">vul in en klik</button>
+    <div id="uitkomst">ab</div>
+    <hr><hr>
+
+    <button onclick="roepaan2()">summarizer</button>
+    <div id="uitkomst2">a</div>
 </body>
 </html>
