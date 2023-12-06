@@ -1,0 +1,27 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function roepaan(){
+            let invoer = document.getElementById("vraag").value;
+            fetch("https://aidontdeletepython.azurewebsites.net/abc/"+invoer)
+            .then(r => r.text())
+            .then(d => verwerk(d))
+        }
+        function verwerk(data){
+            document.getElementById("uitkomst").innerHTML=data;
+        }
+    </script>
+</head>
+<body>
+    <input id="vraag">
+    <button onclick="roepaan()">klik</button>
+    <div id="uitkomst">a</div>
+</body>
+</html>
