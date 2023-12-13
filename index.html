@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        var url = "https://aidontdeletepython.azurewebsites.net"
+//        var url = "https://aidontdeletepython.azurewebsites.net"
+        var url = "http://127.0.0.1:5000"
         function roepaan(){
             let invoer = document.getElementById("vraag").value;
             fetch(url+"/abc/"+invoer)
@@ -16,10 +17,22 @@
             .then(d => verwerk(d, "uitkomst"))
         }
         function verwerk(data, element){
+            console.log(data);
             document.getElementById(element).innerHTML=data;
         }
         function roepaan2(){
-            fetch(url+"/summarizer")
+            let inputtext = document.getElementById("inputtext").value;
+            let sendobject = {}
+            sendobject.inhoud = inputtext
+            let sendjson = JSON.stringify(sendobject)
+            fetch(url+"/summarizer" , {
+                method: 'POST', // Specify the method
+                headers: {
+                    'Content-Type': 'application/json', // Specify the content type
+                    // Add other headers if required
+                },
+                body: sendjson
+            })
             .then(r => r.text())
             .then(d => verwerk(d, "uitkomst2"))
         }
@@ -30,8 +43,9 @@
     <button onclick="roepaan()">vul in en klik</button>
     <div id="uitkomst">ab</div>
     <hr><hr>
-
+    <textarea id="inputtext" cols="50" rows="20">het is mooi weer</textarea>
     <button onclick="roepaan2()">summarizer</button>
     <div id="uitkomst2">a</div>
+
 </body>
 </html>
