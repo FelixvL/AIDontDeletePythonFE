@@ -1,12 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-    </script>
+   <style>
+      button {margin: 5px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer;}
+      button:hover {background-color: #0056b3;}
+   </style>
+      <script src="gegevens.js"></script>
 </head>
 <body>
+   <div>
+      <button id = "start" onclick="start()"> Start Recording </button>
+   </div>
+   <pre><code>
+      <div id="spreektekst"></div>
+   </code></pre>
+   <script>
+      let audioRecorder;
+      let audioChunks = [];
+      navigator.mediaDevices.getUserMedia({ audio: true })
+         .then(stream => {
+            audioRecorder = new MediaRecorder(stream);
+            audioRecorder.addEventListener('dataavailable', e => {
+            audioChunks.push(e.data);
+         });
+      }).catch(err => {
+         console.log('Error: ' + err);
+      });
+   
+      function start() {
+         audioChunks = [];
+         audioRecorder.start();
+         let startknop = document.getElementById("start");
+         startknop.style.backgroundColor = 'red';
+         startknop.onclick = stop;
+      }            
+      function stop() {
+         audioRecorder.stop();
+         let startknop = document.getElementById("start");
+         startknop.style.backgroundColor = 'grey';
+         setTimeout(play, 300);
+      }
+      function play(){
+         const blobObj = new Blob(audioChunks, { type: 'audio/wav' });
+         const audioUrl = URL.createObjectURL(blobObj);
+         const audio = new Audio(audioUrl);
+         verstuur(blobObj);
+         audio.play();
+      }
+
+                  
+      function verstuur(fileurl){
+         const formData = new FormData();
+         formData.append('file', fileurl, 'recording2.wav'); // The 'file' key should match the key expected on the server side
+         xhr = new XMLHttpRequest();
+         xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+              document.getElementById("spreektekst").innerHTML = this.responseText
+              geefTekstAanChatGPT(this.responseText);
+
+            }
+         };
+         xhr.open("POST", url+"/vertaal_audio", true);
+         xhr.send(formData);
+      }
+      function escapeHtml(html) {
+         return html
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+      }
+      function geefTekstAanChatGPT(detekst){
+         let sendobject = {}
+         sendobject.inhoud = detekst
+         let sendjson = JSON.stringify(sendobject)
+         fetch(url+"/vraagstellen" , {
+            method: 'POST', // Specify the method
+            headers: {
+               'Content-Type': 'application/json', // Specify the content type
+            },
+            body: sendjson
+         })
+         .then(r => r.text())
+         .then(d => {
+            document.getElementById("spreektekst").innerHTML += "<hr><hr>"+escapeHtml(d)
+            let startknop = document.getElementById("start");
+            startknop.style.backgroundColor = '#007bff';
+            startknop.onclick = start;
+         })
+      }
+   </script>
+
 </body>
 </html>
