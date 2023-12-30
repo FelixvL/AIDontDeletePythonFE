@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: black;
+        }
+        input, textarea{
+            color:white;
+        }
+    </style>
+    <script>
+        var url = "https://aidontdeletepython.azurewebsites.net"
+//        var url = "http://127.0.0.1:5000"
+        function genereer_afbeelding(){
+            let afbeelding = document.getElementById("plaatje");
+            afbeelding.src = "loading.gif";
+            afbeelding.style.width = '75%';
+            let inputtext = document.getElementById("afbeelding_vraag").value;
+            let sendobject = {}
+            sendobject.inhoud = inputtext
+            let sendjson = JSON.stringify(sendobject)
+            fetch(url+"/genereer_afbeelding" , {
+                method: 'POST', // Specify the method
+                headers: {
+                    'Content-Type': 'application/json', // Specify the content type
+                    // Add other headers if required
+                },
+                body: sendjson
+            })
+            .then(r => r.text())
+            .then(d => verwerk(d, "uitkomst2"))
+        }
+        function verwerk(d){
+            console.log(d);
+            let afbeelding = document.getElementById("plaatje");
+            afbeelding.src = d;
+            afbeelding.style.width = '75%';
+
+        }
+    </script>
+</head>
+<body>
+   <span style="color:rgb(255, 255, 255)">Wat voor een afbeelding wil je graag genereren?</span><br>
+   <textarea id="afbeelding_vraag"></textarea>
+   <input type="button" onclick="genereer_afbeelding()" value="klik">
+   <hr>
+   <img id="plaatje">
+</body>
+</html>
