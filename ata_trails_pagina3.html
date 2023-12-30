@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="gegevens.js"></script>
+</head>
+<body>
+ 
+   <input
+   type="text"
+   id="promptInput"
+ />
+   <button
+     id="generateBtn"
+   >
+     Generate
+   </button>
+   <button
+     id="stopBtn"
+     disabled
+   >
+     Stop
+   </button>
+   key:<input id="dekey" onchange="vulkey()">
+   <p id="resultText" class="whitespace-pre-line"></p>
+ 
+ 
+ <script>
+
+   const API_URL = "https://api.openai.com/v1/chat/completions";
+   let API_KEY = "niks";
+   function vulkey(){
+      let ww = document.getElementById("dekey").value;
+      fetch(url + "/krijg_sleutel/"+ww)
+      .then(r => r.text())
+      .then(d => {API_KEY = d; console.log(d);})
+   }
+   const promptInput = document.getElementById("promptInput");
+   const generateBtn = document.getElementById("generateBtn");
+   const stopBtn = document.getElementById("stopBtn");
+   const resultText = document.getElementById("resultText");
+   
+   let controller = null; // Store the AbortController instance
+   
+   const generate = async () => {
+   // Alert the user if no prompt value
+   if (!promptInput.value) {
+     alert("Please enter a prompt.");
+     return;
+   }
+   
+   // Disable the generate button and enable the stop button
+   generateBtn.disabled = true;
+   stopBtn.disabled = false;
+   resultText.innerText = "Generating...";
+   
+   // Create a new AbortController instance
+   controller = new AbortController();
+   const signal = controller.signal;
+   
+   try {
+     // Fetch the response from the OpenAI API with the signal from AbortController
+     const response = await fetch(API_URL, {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+         "Authorization": `Bearer ${API_KEY}`,
+       },
+       body: JSON.stringify({
+         model: "gpt-4",
+         messages: [{ role: "user", content: promptInput.value }],
+         max_tokens: 4000,
+         stream: true, // For streaming responses
+       }),
+       signal, // Pass the signal to the fetch request
+     });
+   
+     // Read the response as a stream of data
+     const reader = response.body.getReader();
+     const decoder = new TextDecoder("utf-8");
+     resultText.innerText = "";
+   
+     while (true) {
+       const { done, value } = await reader.read();
+       if (done) {
+         break;
+       }
+       // Massage and parse the chunk of data
+       const chunk = decoder.decode(value);
+       const lines = chunk.split("\n");
+       const parsedLines = lines
+         .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
+         .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
+         .map((line) => JSON.parse(line)); // Parse the JSON string
+   
+       for (const parsedLine of parsedLines) {
+         const { choices } = parsedLine;
+         const { delta } = choices[0];
+         const { content } = delta;
+         // Update the UI with the new content
+         if (content) {
+           resultText.innerText += content;
+         }
+       }
+     }
+   } catch (error) {
+     // Handle fetch request errors
+     if (signal.aborted) {
+       resultText.innerText = "Request aborted.";
+     } else {
+       console.error("Error:", error);
+       resultText.innerText = "Error occurred while generating.";
+     }
+   } finally {
+     // Enable the generate button and disable the stop button
+     generateBtn.disabled = false;
+     stopBtn.disabled = true;
+     controller = null; // Reset the AbortController instance
+   }
+   };
+   
+   const stop = () => {
+   // Abort the fetch request by calling abort() on the AbortController instance
+   if (controller) {
+     controller.abort();
+     controller = null;
+   }
+   };
+   
+   promptInput.addEventListener("keyup", (event) => {
+   if (event.key === "Enter") {
+     generate();
+   }
+   });
+   generateBtn.addEventListener("click", generate);
+   stopBtn.addEventListener("click", stop);
+   
+   </script>    
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<input type="file" id="inputinvoer">
+<button onclick="bestanduploaden()">go</button>
+<script src="gegevens.js"></script>
+<script>
+  function bestanduploaden(){
+    var fileInput = document.getElementById('inputinvoer');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+    xhr = new XMLHttpRequest();
+         xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+              console.log("yes"+this.responseText);
+              document.getElementById("linkje").href = url+"/vision"
+            }
+         };
+         xhr.open("POST", url+"/afbeelding_online_plaatsen", true);
+         xhr.send(formData);
+  }
+</script>
+<a id="linkje">klik om te zien</a>
