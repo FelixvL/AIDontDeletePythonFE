@@ -1,22 +1,6 @@
-<input type="file" id="inputinvoer">
-<button onclick="bestanduploaden2()">go</button>
+<input type="file" id="inputinvoer" onchange="bestanduploaden()">
 <script src="gegevens.js"></script>
 <script>
-  function bestanduploaden(){
-    var fileInput = document.getElementById('inputinvoer');
-    var file = fileInput.files[0];
-    var formData = new FormData();
-    formData.append('file', file);
-    xhr = new XMLHttpRequest();
-         xhr.onreadystatechange = function(){
-            if(xhr.readyState == 4){
-              console.log("yes"+this.responseText);
-              document.getElementById("linkje").href = url+"/vision"
-            }
-         };
-         xhr.open("POST", url+"/afbeelding_online_plaatsen", true);
-         xhr.send(formData);
-  }
   function verstuur_beeldverzoek(){
     let sendobject = {}
     sendobject.inhoud = document.getElementById("url_link").value;
@@ -31,7 +15,7 @@
     .then(r => r.text())
     .then(d => console.log(d))
   }
-  function bestanduploaden2(){
+  function bestanduploaden(){
     var fileInput = document.getElementById('inputinvoer');
     var file = fileInput.files[0];
     var formData = new FormData();
@@ -40,14 +24,24 @@
          xhr.onreadystatechange = function(){
             if(xhr.readyState == 4){
               console.log("yes"+this.responseText);
-              document.getElementById("linkje").href = url+"/vision"
+              fetch(url+"/vision")
+              .then(r => r.text())
+              .then(d => verwerkAntwoordImage(d))
+
             }
          };
          xhr.open("POST", "https://0111.nl/ai/ai_image_upload.php", true);
          xhr.send(formData);
   }
+  function verwerkAntwoordImage(tekst_over_image){
+    console.log(tekst_over_image);
+    document.getElementById("antwoortekst").innerHTML = tekst_over_image;
+    document.getElementById("afbeelding").src = "https://0111.nl/ai/abc.png";
+  }
 </script>
-<a id="linkje">static variant bekijken</a>
-<hr><hr>
+<hr>
+<div id="antwoortekst" style="width:800px"></div>
+<hr>
+<img id="afbeelding">
 <input id="url_link">
-<button onclick="verstuur_beeldverzoek()">Verstuur met linkVar</button>ABC
+<button onclick="verstuur_beeldverzoek()">Verstuur met linkVar</button>
