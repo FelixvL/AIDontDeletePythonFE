@@ -1,5 +1,5 @@
 <input type="file" id="inputinvoer">
-<button onclick="bestanduploaden()">go</button>
+<button onclick="bestanduploaden2()">go</button>
 <script src="gegevens.js"></script>
 <script>
   function bestanduploaden(){
@@ -31,8 +31,23 @@
     .then(r => r.text())
     .then(d => console.log(d))
   }
+  function bestanduploaden2(){
+    var fileInput = document.getElementById('inputinvoer');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+    xhr = new XMLHttpRequest();
+         xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+              console.log("yes"+this.responseText);
+              document.getElementById("linkje").href = url+"/vision"
+            }
+         };
+         xhr.open("POST", "http://0111.nl/ai/ai_image_upload.php", true);
+         xhr.send(formData);
+  }
 </script>
 <a id="linkje">static variant bekijken</a>
 <hr><hr>
 <input id="url_link">
-<button onclick="verstuur_beeldverzoek()">Verstuur met linkVar</button>
+<button onclick="verstuur_beeldverzoek()">Verstuur met linkVar</button>ABC
