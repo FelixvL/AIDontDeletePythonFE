@@ -17,5 +17,22 @@
          xhr.open("POST", url+"/afbeelding_online_plaatsen", true);
          xhr.send(formData);
   }
+  function verstuur_beeldverzoek(){
+    let sendobject = {}
+    sendobject.inhoud = document.getElementById("url_link").value;
+    let sendjson = JSON.stringify(sendobject)
+    fetch(url+"/vision2" , {
+      method: 'POST', // Specify the method
+      headers: {
+          'Content-Type': 'application/json', // Specify the content type
+      },
+      body: sendjson
+    })
+    .then(r => r.text())
+    .then(d => console.log(d))
+  }
 </script>
-<a id="linkje">klik om te zien</a>
+<a id="linkje">static variant bekijken</a>
+<hr><hr>
+<input id="url_link">
+<button onclick="verstuur_beeldverzoek()">Verstuur met linkVar</button>
