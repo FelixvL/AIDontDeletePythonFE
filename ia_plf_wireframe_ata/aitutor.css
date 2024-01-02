@@ -1,0 +1,33 @@
+.btnown{
+    background-color: blue;
+    color: white;
+    margin:12px;
+}
+.zoekbalk{
+    background-color: beige;
+    padding:15px;
+}
+.btnown:hover{
+    background-color: navy;
+    color: white;
+}
+.titelheader{
+    padding:5px;
+}
+.paginaTitel{
+    padding:15px;    
+}
+.paginaBody{
+    background-color: beige
+}
+textarea.form-control{
+    width: 80%;
+    margin: 14px;
+}
+.vraag{
+    font-size: xx-large;
+}
+.antwoord{
+    font-size: large;
+    margin-left:25px;
+}
