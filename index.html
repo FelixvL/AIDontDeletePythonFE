@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        var url = "https://aidontdeletepython.azurewebsites.net"
-//        var url = "http://127.0.0.1:5000"
+//        var url = "https://aidontdeletepython.azurewebsites.net"
+        var url = "http://127.0.0.1:5000"
         function roepaan(){
             let invoer = document.getElementById("vraag").value;
             fetch(url+"/abc/"+invoer)
@@ -36,6 +36,22 @@
             .then(r => r.text())
             .then(d => verwerk(d, "uitkomst2"))
         }
+        function roepaan3(){
+            let inputtext = document.getElementById("inputtext3").value;
+            let sendobject = {}
+            sendobject.inhoud = inputtext
+            let sendjson = JSON.stringify(sendobject)
+            fetch(url+"/summarizer_per_persoon" , {
+                method: 'POST', // Specify the method
+                headers: {
+                    'Content-Type': 'application/json', // Specify the content type
+                    // Add other headers if required
+                },
+                body: sendjson
+            })
+            .then(r => r.text())
+            .then(d => verwerk(d, "uitkomst3"))
+        }
     </script>
 </head>
 <body>
@@ -46,6 +62,11 @@
     <textarea id="inputtext" cols="50" rows="20">het is mooi weer</textarea>
     <button onclick="roepaan2()">summarizer</button>
     <div id="uitkomst2">a</div>
+    <hr><hr>
+    ER MOET @@@ om het algemeen te scheiden en ||| tussen personen staan<br>
+    <textarea id="inputtext3" cols="50" rows="20">het is mooi weer</textarea>
+    <button onclick="roepaan3()">summarizer per persoon</button>
+    <div id="uitkomst3">a</div>    
     <a href="ata_trails_pagina.html" target="_blank">ata trials afbeelding generatie</a><hr>
     <a href="ata_trails_pagina2.html" target="_blank">ata trials recording</a><hr>
     <a href="ata_trails_pagina3.html" target="_blank">ata trials stream</a><hr>
