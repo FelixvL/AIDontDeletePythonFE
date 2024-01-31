@@ -44,6 +44,10 @@
         }
         function roepaan3(){
             let inputtext = document.getElementById("inputtext3").value;
+            if(inputtext.indexOf("@@@")==-1){
+                alert("geen @@@ in invoer");
+                return;
+            }
             let sendobject = {}
             sendobject.inhoud = inputtext
             let sendjson = JSON.stringify(sendobject)

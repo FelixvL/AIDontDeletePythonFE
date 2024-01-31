@@ -35,7 +35,7 @@
       let ww = document.getElementById("dekey").value;
       fetch(url + "/krijg_sleutel/"+ww)
       .then(r => r.text())
-      .then(d => {API_KEY = d; console.log(d);})
+      .then(d => {API_KEY = d;})
    }
    const promptInput = document.getElementById("promptInput");
    const generateBtn = document.getElementById("generateBtn");
