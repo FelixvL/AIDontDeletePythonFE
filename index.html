@@ -7,6 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var url = "https://aidontdeletepython.azurewebsites.net"
 //        var url = "http://127.0.0.1:5000"
@@ -55,23 +60,60 @@
     </script>
 </head>
 <body>
-    <input id="vraag" value="wat is de hoofdstad van spanje" size="50">
-    <button onclick="roepaan()">vul in en klik</button>
-    <div id="uitkomst">ab</div>
-    <hr><hr>
-    <textarea id="inputtext" cols="50" rows="20">het is mooi weer</textarea>
-    <button onclick="roepaan2()">summarizer</button>
-    <div id="uitkomst2">a</div>
-    <hr><hr>
-    ER MOET @@@ om het algemeen te scheiden en ||| tussen personen staan<br>
-    <textarea id="inputtext3" cols="50" rows="20">het is mooi weer</textarea>
-    <button onclick="roepaan3()">summarizer per persoon</button>
-    <div id="uitkomst3">a</div>    
-    <a href="ata_trails_pagina.html" target="_blank">ata trials afbeelding generatie</a><hr>
-    <a href="ata_trails_pagina2.html" target="_blank">ata trials recording</a><hr>
-    <a href="ata_trails_pagina3.html" target="_blank">ata trials stream</a><hr>
-    <a href="ata_trails_pagina4.html" target="_blank">ata trials vision</a><hr>
-    <a href="ia_plf_wireframe_ata/index.html" target="_blank">ata plf wireframe</a><hr>
-
+    <!--
+    <div class="row">
+        <div class="col-sm-12"></div>
+    </div>
+    -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <input id="vraag" class="form-control" value="wat is de hoofdstad van spanje" size="50">
+            <br>
+            <button onclick="roepaan()" class="btn btn-primary">vul in en klik</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="uitkomst">-</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <textarea id="inputtext" class="form-control">het is mooi weer</textarea>
+            <br>
+            <button onclick="roepaan2()" class="btn btn-primary">summarizer</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="uitkomst2">-</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            ER MOET @@@ om het algemeen te scheiden en ||| tussen personen staan
+            <br>
+            <textarea id="inputtext3" class="form-control">het @@@ is mooi ||| weer</textarea>
+            <br>
+            <button onclick="roepaan3()" class="btn btn-primary">summarizer per persoon</button>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="uitkomst3">-</div> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="ata_trails_pagina.html" target="_blank">ata trials afbeelding generatie</a><hr>
+            <a href="ata_trails_pagina2.html" target="_blank">ata trials recording</a><hr>
+            <a href="ata_trails_pagina3.html" target="_blank">ata trials stream</a><hr>
+            <a href="ata_trails_pagina4.html" target="_blank">ata trials vision</a><hr>
+            <a href="ia_plf_wireframe_ata/index.html" target="_blank">ata plf wireframe</a><hr>
+        
+        </div>
+    </div>       
+</div>
 </body>
 </html>
