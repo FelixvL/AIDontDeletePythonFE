@@ -1,0 +1,63 @@
+<script>
+    function kopieertekst() {
+  // Get the text field
+  var copyText = document.getElementById("detekst");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+    }
+</script>
+<button onclick="kopieertekst()">KOPIEER TEKST</button>
+<pre><textarea id="detekst" cols="50" rows="50">
+    UBports DevSync Notes 2023-11-09
+
+    What you have been working on? What can be unblocked for you?
+    @@@
+    Alfred:
+        * Re-introduction of Ubuntu Touch to Canonical folks at the summit
+        * Mark Shuttleworth happy about seeing snaps being installed on Ubuntu Touch
+        * Marketing video with Alfred taken by Canonical folks
+        * ~ 800 people at the summit
+        * Alfred was asked how many person hours it would need to to implement Snap as a replacement for Click packages (Snap-only environment)
+        * Discussion about pros/cons of switching over to Snaps as the primary packaging system (including the Ubuntu Snap store being the initial source of apps) https://gitlab.com/lol-snap/lol
+        * Send patch upstream to Snap maintainers about registering Ubuntu Touch as a possible core system (for fixing CUPS on Ubuntu Touch via Snap)
+        * polkit agent finished
+    |||
+    Ratchanan
+        * Discuss upowerd patch with upowerd people (implementation details, back and forth)
+        * Vendoring of upowerd from Ubuntu 22.04 will come soon, including the discussed patch, fixing fake-battery display on various devices
+        * Started to implement the vibrate-pattern feature in hfd-service (see prev. devsync notes)
+    |||
+    Jami
+        * A lot of testing of Volla devices
+        * Looking at the notification LED integration
+    |||
+    Nikita
+        * Trying to get voice calls working on Volla 22 with Halium 12
+        * Helping Muhammad to debug Galaxy A33/A53 kernel crashes
+    |||
+    Raoul:
+        * Start looking at FOSDEM as an event
+        * Waiting for the BoD to give various Gos for development projects and writing their proposals
+    |||
+    Mike
+        * Draft release announcement of OTA-3, ping people about publishing the information
+        * Identified problem: We still encourage people to report their Ubuntu Touch issues on https://github.com/ubports/ubuntu-touch, this workflow needs to be revisited and adjusted.
+    |||
+    Muhammad
+        * FP4, work on locked boot loader support
+        * Does Fairphone support "custom-signing key" -> No
+        * Volla ships UT with boot loader unlocked, because the rootfs would still be unsigned, so no big security gain
+        * Discussion about pros/cons of having a working secure boot chain vs. not, technical detail discussion
+        * porting work OnePlus One, getting polished now, candidate for stable for 20.04 OTA-4
+        * some other bits of work...
+    |||
+    Lionel
+        * custom ringtone on a per-contact basis
+        * notification pop-up with privacy mode, blur the avatar and say "New Message"
+        
+</textarea></pre>
