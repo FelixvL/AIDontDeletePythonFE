@@ -21,6 +21,13 @@
             let lsi_json = JSON.stringify(lsi);
             voer_post_fetch_uit("docent_maak_lesstofitem_aan", lsi_json, naar_startpagina_docent);
         }
+        function maak_definitie_aan(){
+            let definitie = {};
+            definitie.term = dg("definitie_term").value;
+            definitie.definitie = dg("definitie_definitie").value;
+            let definitie_json = JSON.stringify(definitie);
+            voer_post_fetch_uit("docent_maak_definitie_aan", definitie_json, naar_startpagina_docent);
+        }
         function naar_startpagina_docent(){
             window.location = 'docent_invoeren.html';
         }
@@ -40,9 +47,13 @@
         <textarea id="lsi_inhoud" onkeyup="toon_lesstofitem()" rows="10" cols="150"></textarea>
     </div>
     <div>
-        <button onclick="maak_lesstof_item_aan()">Maak Aan</button>
+        <button onclick="maak_lesstof_item_aan()">Maak Lesstofitem Aan</button>
     </div>
     <h1 id="demo_titel"></h1>
     <div id="demo_inhoud"></div>
+    <hr><hr>
+    Term: <input id="definitie_term"><br>
+    Definitie: <input id="definitie_definitie"><br>
+    <button onclick="maak_definitie_aan()">Maak Definitie Aan</button>
 </body>
 </html>

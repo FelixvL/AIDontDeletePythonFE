@@ -23,7 +23,6 @@
     xhr = new XMLHttpRequest();
          xhr.onreadystatechange = function(){
             if(xhr.readyState == 4){
-              console.log("yes"+this.responseText);
               fetch(url+"/vision")
               .then(r => r.text())
               .then(d => verwerkAntwoordImage(d))
@@ -34,7 +33,6 @@
          xhr.send(formData);
   }
   function verwerkAntwoordImage(tekst_over_image){
-    console.log(tekst_over_image);
     document.getElementById("antwoortekst").innerHTML = tekst_over_image;
     document.getElementById("afbeelding").src = "https://0111.nl/ai/abc.png?"+ (new Date()).getTime();
   }
