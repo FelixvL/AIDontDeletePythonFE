@@ -1,5 +1,5 @@
-//const url = "http://127.0.0.1:5000/lvs/";
- const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
+const url = "http://127.0.0.1:5000/lvs/";
+// const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
 function voer_fetch_uit(endpoint, callback){
     fetch(url + endpoint)
     .then(r => r.json())
@@ -63,10 +63,12 @@ function toon_docent_alle_lesstofitems_per_traject(data){
     eindString = `<table>`;
     for(let x = 0; x < data.length; x++){
         const checkofdisabled = data[x].statustraject == 'checked' ? 'disabled' : `onclick="ken_lesstofitem_toe_aan_traject(${tid_g}, ${data[x].lesstofitemid})"`
+        const deklasse = data[x].statustraject == 'checked' ? 'toegekend' : `niettoegekend`
+        
         eindString += `
             <tr>
             <td><input type=checkbox ${data[x].statustraject} ${checkofdisabled} ></td>
-            <td onclick="inhoud_lesstofitem(${data[x].lesstofitemid})">${data[x].lesstofitemnaam}</td>
+            <td onclick="inhoud_lesstofitem(${data[x].lesstofitemid})"><span class="${deklasse}">${data[x].lesstofitemnaam}</span></td>
             <td><div id="lesstofitem_div${data[x].lesstofitemid}"></div></td>
             </tr>
         `
