@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lvs.css">
+    <script src="lvs.js"></script>
+    <script>
+        window.onload = function(){
+            const sid = new URLSearchParams(window.location.search).get("sid");
+            student_alle_trajecten(sid);
+        }
+    </script>
+</head>
+<body>
+    Leerstofitems:
+    <div id="uitkomst">
+
+    </div>
+</body>
+</html>
