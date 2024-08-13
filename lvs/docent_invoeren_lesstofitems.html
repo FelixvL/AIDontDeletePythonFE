@@ -13,13 +13,24 @@
     <script src="lvs.js"></script>
     <script>
         window.onload = function(){
+            toon_alles();
+        }
+        function toon_alles(){
             docent_alle_lesstofitems_per_traject();
+            docent_alle_definities();
+
         }
     </script>
 </head>
 <body>
-    <input id="zoekterm" onkeyup="docent_alle_lesstofitems_per_traject()">
+    <input id="zoekterm" onkeyup="toon_alles()">
+    Lesstofitems:<br>
     <div id="uitkomst">
+
+    </div>
+    <hr>
+    Definities:<br>
+    <div id="uitkomst_definities">
 
     </div>
 </body>

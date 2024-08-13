@@ -1,5 +1,5 @@
-//const url = "http://127.0.0.1:5000/lvs/";
-const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
+const url = "http://127.0.0.1:5000/lvs/";
+// const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
 function voer_fetch_uit(endpoint, callback){
     fetch(url + endpoint)
     .then(r => r.json())
@@ -50,11 +50,16 @@ function docent_alle_lesstofitems_per_traject(){
     if(zoekterm == ''){
         zoekterm = 'xxxxx';
     }
-    console.log("yeszoekterm",zoekterm)
     voer_fetch_uit("docent_alle_lesstofitems_per_traject/"+tid_g+"/"+zoekterm,toon_docent_alle_lesstofitems_per_traject);
 }
+function docent_alle_definities(){
+    let zoekterm = dg("zoekterm").value;
+    if(zoekterm == ''){
+        zoekterm = 'xxxxx';
+    }
+    voer_fetch_uit("docent_alle_definities/"+zoekterm,toon_docent_alle_definities);
+}
 function toon_docent_alle_lesstofitems_per_traject(data){
-    console.log("data",data);
     eindString = `<table>`;
     for(let x = 0; x < data.length; x++){
         const checkofdisabled = data[x].statustraject == 'checked' ? 'disabled' : `onclick="ken_lesstofitem_toe_aan_traject(${tid_g}, ${data[x].lesstofitemid})"`
@@ -69,12 +74,23 @@ function toon_docent_alle_lesstofitems_per_traject(data){
     eindString += `</table>`;
     document.getElementById("uitkomst").innerHTML = eindString;   
 }
+function toon_docent_alle_definities(data){
+    eindString = `<table>`;
+    for(let x = 0; x < data.length; x++){
+        eindString += `
+            <tr>
+            <td>${data[x].term}</td><td>${data[x].definitie}</td>
+            </tr>
+        `
+    }
+    eindString += `</table>`;
+    document.getElementById("uitkomst_definities").innerHTML = eindString; 
+}
 function student_alle_trajecten(sid){
     sid_g = sid;
     voer_fetch_uit("student_alle_lesstofitems_per_traject/"+sid, toon_student_alle_lesstofitems_per_traject);
 }
 function toon_student_alle_lesstofitems_per_traject(data){
-    console.log(data)
     eindString = `<table>`;
     for(let x = 0; x < data.length; x++){
         const checkofdisabled = data[x].statusstudent == 'checked' ? 'disabled' : `onclick="student_ken_lesstofitem_toe_aan_student(${sid_g}, ${data[x].lesstofitemid})"`
@@ -92,7 +108,6 @@ function ken_lesstofitem_toe_aan_traject(tid, lsid){
     voer_fetch_uit("docent_ken_lesstofitem_toe_aan_traject/"+tid+"/"+lsid, toon_docent_ken_lesstofitem_toe_aan_traject);
 }
 function toon_docent_ken_lesstofitem_toe_aan_traject(data){
-    console.log("toon_docent_ken_lesstofitem_toe_aan_traject",data);
     window.location = window.location;
 }
 function student_ken_lesstofitem_toe_aan_student(sid_g, lsid){
@@ -100,7 +115,6 @@ function student_ken_lesstofitem_toe_aan_student(sid_g, lsid){
 
 }
 function toon_student_ken_lesstofitem_toe_aan_student(data){
-    console.log("toon_student_ken_lesstofitem_toe_aan_student", data)
     window.location = window.location;
 }
 function dg(naam){
@@ -131,7 +145,5 @@ function inhoud_lesstofitem(lsid){
     voer_fetch_uit("inhoud_lesstofitem/"+lsid, toon_inhoud_lesstofitem)
 }
 function toon_inhoud_lesstofitem(data){
-    console.log("--",data);
-    console.log("lesstofitem_div"+data[0].id);
     dg("lesstofitem_div"+data[0].id).innerHTML = data[0].inhoud
 }
