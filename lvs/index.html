@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="lvs.css">
     <script src="lvs.js"></script>
     <script>
-        window.onload = function(){
-            const sid = new URLSearchParams(window.location.search).get("sid");
-            student_alle_trajecten(sid);
+        window.onload = function (){
+            alle_studenten();
         }
     </script>
 </head>
 <body>
-    <div id="uitkomst">
-
+    <h1>Docent</h1>
+    <div>
+        <a href="docent_invoeren.html">docent invoeren lesstofitem gegeven</a>
+    </div>
+    <h1>Studenten</h1>
+    <div id="lijst_studenten">
     </div>
 </body>
 </html>
