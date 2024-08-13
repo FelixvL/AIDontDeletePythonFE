@@ -7,16 +7,18 @@
     --cfzwart: #000000;
   }
 
-*{
+  * {
     font-family: Helvetica, sans-serif;
-    background-color: var(--cfzwart);
-    color:var(--cfgroen);
-}
-input{
-    background-color: var(--cfgrijs);
+    background-color: var(--cfzwart) !important;
     color: var(--cfgroen);
 }
-.traject{
+
+input {
+    background-color: var(--cfgrijs) !important;
+    color: var(--cfgroen);
+}
+
+.traject {
     padding: 4px 12px 4px 12px;
     border: 1px solid var(--cfgrijs);
     border-radius: 7px;
@@ -24,6 +26,31 @@ input{
 .traject a{
     text-decoration: none;
 }
-button{
-    
+.form-group{
+    color:var(--cfgrijs) !important;
+    background-color: var(--cfzwart) !important;
+}
+.form-control{
+    color:var(--cfgrijs) !important;
+    background-color: var(--cfzwart) !important;
+
+}
+.btn{
+    background-color: var(--cfpaars) !important;
+}
+a{
+    color:var(--cfpaars);
+    background-color: var(--cfgrijs) !important;
+    padding:7px;
+    border-radius:4px;
+}
+td{
+    padding:10px;
+}
+.toegekend{
+    color:var(--cfgroen);
+}
+.niettoegekend{
+    color:var(--cfgrijs);
+
 }
