@@ -53,9 +53,12 @@
          formData.append('file', fileurl, 'recording2.wav'); // The 'file' key should match the key expected on the server side
          xhr = new XMLHttpRequest();
          xhr.onreadystatechange = function(){
+            console.log("terug");
             if(xhr.readyState == 4){
               document.getElementById("spreektekst").innerHTML = this.responseText
-              geefTekstAanChatGPT(this.responseText);
+              navigator.clipboard.writeText(this.responseText);
+              //ZET AAN INDIEN JE ANTWOORD WIL
+              //geefTekstAanChatGPT(this.responseText);
 
             }
          };

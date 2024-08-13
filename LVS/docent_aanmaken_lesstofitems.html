@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lvs.css">
+    <script src="lvs.js"></script>
+    <script>
+        window.onload = function(){
+        }
+        function maak_lesstof_item_aan(){
+            let lsi = {};
+            lsi.lsi_titel = dg("lsi_titel").value;
+            lsi.lsi_inhoud = dg("lsi_inhoud").value;
+            let lsi_json = JSON.stringify(lsi);
+            voer_post_fetch_uit("docent_maak_lesstofitem_aan", lsi_json);
+        }
+        function toon_lesstofitem(){
+            dg("demo_titel").innerHTML = dg("lsi_titel").value;
+            dg("demo_inhoud").innerHTML = dg("lsi_inhoud").value;
+        }
+    </script>
+</head>
+<body>
+    <h1>MaakLestofItemAan</h1>
+    <div>
+        <input id="lsi_titel">
+    </div>
+    <div>
+        <textarea id="lsi_inhoud" onchange="toon_lesstofitem()"></textarea>
+    </div>
+    <div>
+        <button onclick="maak_lesstof_item_aan()">Maak Aan</button>
+    </div>
+    <h1 id="demo_titel"></h1>
+    <div id="demo_inhoud"></div>
+</body>
+</html>
