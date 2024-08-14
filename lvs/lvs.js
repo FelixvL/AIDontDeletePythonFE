@@ -1,4 +1,4 @@
-// const url = "http://127.0.0.1:5000/lvs/";
+//const url = "http://127.0.0.1:5000/lvs/";
 const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
 function voer_fetch_uit(endpoint, callback){
     fetch(url + endpoint)
@@ -89,17 +89,23 @@ function toon_docent_alle_definities(data){
     document.getElementById("uitkomst_definities").innerHTML = eindString; 
 }
 function student_alle_trajecten(sid){
+    let zoekterm = dg("zoekterm").value;
+    if(zoekterm == ''){
+        zoekterm = 'xxxxx';
+    }
     sid_g = sid;
-    voer_fetch_uit("student_alle_lesstofitems_per_traject/"+sid, toon_student_alle_lesstofitems_per_traject);
+    voer_fetch_uit("student_alle_lesstofitems_per_traject/"+sid+"/"+zoekterm, toon_student_alle_lesstofitems_per_traject);
 }
 function toon_student_alle_lesstofitems_per_traject(data){
     eindString = `<table>`;
     for(let x = 0; x < data.length; x++){
         const checkofdisabled = data[x].statusstudent == 'checked' ? 'disabled' : `onclick="student_ken_lesstofitem_toe_aan_student(${sid_g}, ${data[x].lesstofitemid})"`
+        const deklasse = data[x].statusstudent == 'checked' ? 'toegekend' : `niettoegekend`
         eindString += `
             <tr>
             <td><input type=checkbox ${data[x].statusstudent} ${checkofdisabled} ></td>
-            <td>${data[x].lesstofitemnaam}</td>
+            <td onclick="inhoud_lesstofitem(${data[x].lesstofitemid})"><span class="${deklasse}">${data[x].lesstofitemnaam}</span></td>
+            <td><div id="lesstofitem_div${data[x].lesstofitemid}"></div></td>
             </tr>
         `
     }
@@ -148,4 +154,18 @@ function inhoud_lesstofitem(lsid){
 }
 function toon_inhoud_lesstofitem(data){
     dg("lesstofitem_div"+data[0].id).innerHTML = data[0].inhoud
+}
+function maak_student_aan(){
+    const studentnaam = dg("studentnaam").value;
+    voer_fetch_uit("maak_student_aan/"+studentnaam, toon_maak_student_aan)
+}
+function toon_maak_student_aan(){
+    window.location = window.location;
+}
+function maak_traject_aan(){
+    const trajectnaam = dg("trajectnaam").value;
+    voer_fetch_uit("maak_traject_aan/"+trajectnaam, toon_maak_traject_aan)
+}
+function toon_maak_traject_aan(){
+    window.location = window.location;
 }
