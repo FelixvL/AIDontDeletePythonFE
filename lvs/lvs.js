@@ -1,5 +1,5 @@
-//const url = "http://127.0.0.1:5000/lvs/";
-const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
+const url = "http://127.0.0.1:5000/lvs/";
+// const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
 function voer_fetch_uit(endpoint, callback){
     fetch(url + endpoint)
     .then(r => r.json())
@@ -168,4 +168,41 @@ function maak_traject_aan(){
 }
 function toon_maak_traject_aan(){
     window.location = window.location;
+}
+function kies_traject(){
+    voer_fetch_uit("kies_traject", toon_student_kies_traject)
+}
+function toon_student_kies_traject(data){
+    console.log(data);
+    eindString = `<table>`;
+    for(let x = 0; x < data.length; x++){
+        eindString += `
+            <tr><td onclick="koppel_traject(${data[x].id}, ${sid})">${data[x].naam}</td></tr>
+        `
+    }
+    eindString += `</table>`;
+    document.getElementById("pagina_inhoud_student").innerHTML = eindString;   
+
+    //dg("pagina_inhoud_student").innerHTML = kies_traject();
+    console.log("je hebt nog geen traject");
+
+}
+function koppel_traject(tid, sid){
+    voer_fetch_uit("koppel_traject/"+tid+"/"+sid, toon_koppel_traject)
+    console.log("koppel_traject", tid, sid);
+}
+function toon_koppel_traject(data){
+    //console.log(data)
+    window.location = window.location;
+}
+
+function nog_geen_traject(){
+    return voer_fetch_uit("heeft_student_traject/"+sid, toon_nog_geen_traject);
+}
+function toon_nog_geen_traject(data){
+    if(data){
+        kies_traject();
+    }else{
+        toon_alles();
+    }
 }
