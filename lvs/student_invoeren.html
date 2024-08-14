@@ -11,15 +11,31 @@
     <link rel="stylesheet" href="lvs.css">
     <script src="lvs.js"></script>
     <script>
+        const sid = new URLSearchParams(window.location.search).get("sid");
         window.onload = function(){
-            const sid = new URLSearchParams(window.location.search).get("sid");
+            toon_alles();
+        }
+        function toon_alles(){
             student_alle_trajecten(sid);
+            docent_alle_definities();
         }
     </script>
 </head>
 <body>
-    Leerstofitems:
+    <div class="form-group">
+        Zoekterm:
+        <input id="zoekterm" onkeyup="toon_alles()" class="form-control">
+    </div>
+    <div>
+        Lesstofitems:
+    </div>
     <div id="uitkomst">
+
+    </div>
+    <div>
+        Definities:
+    </div>
+    <div id="uitkomst_definities">
 
     </div>
 </body>
