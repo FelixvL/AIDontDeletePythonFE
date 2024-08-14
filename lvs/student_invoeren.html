@@ -13,8 +13,11 @@
     <script>
         const sid = new URLSearchParams(window.location.search).get("sid");
         window.onload = function(){
-            toon_alles();
+            nog_geen_traject()
+
         }
+
+
         function toon_alles(){
             student_alle_trajecten(sid);
             docent_alle_definities();
@@ -22,21 +25,23 @@
     </script>
 </head>
 <body>
-    <div class="form-group">
-        Zoekterm:
-        <input id="zoekterm" onkeyup="toon_alles()" class="form-control">
-    </div>
-    <div>
-        Lesstofitems:
-    </div>
-    <div id="uitkomst">
+    <div id="pagina_inhoud_student">
+        <div class="form-group">
+            Zoekterm:
+            <input id="zoekterm" onkeyup="toon_alles()" class="form-control">
+        </div>
+        <div>
+            Lesstofitems:
+        </div>
+        <div id="uitkomst">
 
-    </div>
-    <div>
-        Definities:
-    </div>
-    <div id="uitkomst_definities">
+        </div>
+        <div>
+            Definities:
+        </div>
+        <div id="uitkomst_definities">
 
+        </div>
     </div>
 </body>
 </html>
