@@ -1,5 +1,5 @@
 //const url = "http://127.0.0.1:5000/lvs/";
-const url = "https://aidontdeletepython.azurewebsites.net/lvs/";
+const url = "https://pythonapplicatie-c4fub0d3eqbyc7gt.westeurope-01.azurewebsites.net/lvs/";
 function voer_fetch_uit(endpoint, callback){
     fetch(url + endpoint)
     .then(r => r.json())
