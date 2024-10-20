@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertaalapplicatie</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vertaalapplicatie</h1>
+        
+        <!-- Opnamefunctionaliteit -->
+        <div class="controls">
+            <button id="start-btn">Opnemen</button>
+            <button id="pause-btn" disabled>Pauze</button>
+            <button id="stop-btn" disabled>Stop</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+        
+        <!-- Audiobalk voor opgenomen audio -->
+        <h3>Audio in de originele taal:</h3>
+        <audio id="original-audio" controls></audio>
+        
+        <!-- Originele tekst -->
+        <h3>Originele tekst:</h3>
+        <textarea id="original-text" rows="4" cols="50" placeholder="Hier komt de herkende tekst..."></textarea>
+        
+        <!-- Vertaalde tekst -->
+        <h3>Vertaalde tekst:</h3>
+        <textarea id="translated-text" rows="4" cols="50" placeholder="Hier komt de vertaalde tekst..."></textarea>
+
+        <!-- Audiobalk voor vertaalde audio -->
+        <h3>Audio in de vertaalde taal:</h3>
+        <audio id="translated-audio" controls></audio>
+
+        <!-- Taalkeuze -->
+        <label for="language-select">Kies een taal:</label>
+        <select id="language-select">
+            <option value="en">Engels</option>
+            <option value="es">Spaans</option>
+            <option value="fr">Frans</option>
+            <option value="de">Duits</option>
+            <option value="it">Italiaans</option>
+            <option value="nl">Nederlands</option>
+        </select>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
