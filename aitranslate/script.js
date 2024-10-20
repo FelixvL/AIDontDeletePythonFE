@@ -1,3 +1,5 @@
+const url = "http://127.0.0.1:5000"
+
 // Variabelen voor knoppen
 const startBtn = document.getElementById('start-btn');
 const pauseBtn = document.getElementById('pause-btn');
@@ -84,7 +86,7 @@ function sendAudioToBackend(audioBlob) {
     // Haal de volledige tekst op uit het originele tekstveld en voeg nieuwe transcriptie toe
     const existingText = originalText.value;
 
-    fetch('http://127.0.0.1:5000/ai/upload_audio', {
+    fetch(url+'/ai/upload_audio', {
         method: 'POST',
         body: formData
     })
@@ -108,7 +110,7 @@ function sendAudioToBackend(audioBlob) {
 // Functie om de volledige tekst te vertalen via de backend
 // Functie om de volledige tekst te vertalen en audio af te spelen via de backend
 function translateFullText(text, language) {
-    fetch('http://127.0.0.1:5000/ai/translate', {
+    fetch(url+'/ai/translate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -125,8 +127,8 @@ function translateFullText(text, language) {
         
         // Zet de URL van het audiobestand in de onderste audioplayer
         const translatedAudio = document.getElementById('translated-audio');
-        translatedAudio.src = "http://127.0.0.1:5000"+data.audio_url;
-        console.log("http://127.0.0.1:5000"+data.audio_url)
+        translatedAudio.src = url+""+data.audio_url;
+        console.log(url+""+data.audio_url)
         translatedAudio.load();  // Herlaad de audioplayer met het nieuwe bestand
         translatedAudio.play();  // Automatisch afspelen als de audio geladen is
     })
